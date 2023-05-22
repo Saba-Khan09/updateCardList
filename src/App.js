@@ -11,7 +11,50 @@ function App() {
   const [isSplit, setIsSplit] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
- 
+  const [sortDirection, setSortDirection] = useState('lowToHigh');
+
+  const renderSortIcon = () => {
+    if (sortDirection === 'highToLow') {
+      return <span>&darr;</span>;
+    } else {
+      return <span>&uarr;</span>;
+    }
+  };
+
+  const handleSortDirection = () => {
+    if (sortDirection === 'highToLow') {
+      setSortDirection('lowToHigh');
+    } else {
+      setSortDirection('highToLow');
+    }
+  };
+  
+  const sortItems = () => {
+    handleSortDirection();
+    let sortedItems = [...items];
+    sortedItems.sort((a, b) => {
+      if (sortDirection === 'highToLow') {
+        if (a.radioButtonOption === 'High' && b.radioButtonOption !== 'High') {
+          return -1;
+        } else if (a.radioButtonOption !== 'High' && b.radioButtonOption === 'High') {
+          return 1;
+        } else {
+          return 0;
+        }
+      } else {
+        if (a.radioButtonOption === 'High' && b.radioButtonOption !== 'High') {
+          return 1;
+        } else if (a.radioButtonOption !== 'High' && b.radioButtonOption === 'High') {
+          return -1;
+        } else {
+          return 0;
+        }
+      }
+    });
+    setItems(sortedItems);
+    console.log("sortedItems",sortedItems)
+  };
+
   const handleClick = (index,cardData) => {
     setIsSplit(true);
     setSelectedIndex(index)
@@ -48,11 +91,17 @@ function App() {
                 <input className='form-control' value={inputValue} placeholder="Create Task..." onChange={handleInputChange}></input>
                 <button className="btn btn-dark" onClick={handleAddItem} disabled={!inputValue}>Add</button>
               </div>
+              
             </form>
+            <button className='btn btn-sm btn-light' onClick={sortItems}>
+              Sort {sortDirection === 'highToLow' ? 'highToLow' : 'lowToHigh'} {renderSortIcon()}
+            </button>
+            {/* <button className='btn btn-sm btn-light'>Sort &uarr;&darr;</button> */}
               {items.map((data, index)=>(
                 <div className="card" key={index} onClick={()=>handleClick(index,data)} >
                   <div className="card-body">
                     <h1 className="card-title">{data.title}</h1>
+                    {/* <p className='card-text'>{data.radioButtonOption}</p> */}
                   </div>
                 </div>
               ))}

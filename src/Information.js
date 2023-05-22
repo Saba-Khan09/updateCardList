@@ -51,8 +51,8 @@ export default function Information(props) {
                 </Form.Group>
                 {['radio'].map((type) => (
                     <div key={`inline-${type}`} className="mt-3">
-                        <Form.Check inline label="Low" name="radioButtonOption" value="Low" checked={radioButtonOption === "Low"} onChange={(event) => setRadioButtonOption(event.target.value)} type={type} id={`inline-${type}-1`} />
-                        <Form.Check inline label="Medium" name="radioButtonOption" value="Medium" checked={radioButtonOption === "Medium"} onChange={(event) => setRadioButtonOption(event.target.value)} type={type} id={`inline-${type}-2`} />
+                        <Form.Check inline label="Low"  name="radioButtonOption" value="Low" checked={radioButtonOption === "Low"} onChange={(event) => setRadioButtonOption(event.target.value)} type={type} id={`inline-${type}-1`} />
+                        {/* <Form.Check inline label="Medium" name="radioButtonOption" value="Medium" checked={radioButtonOption === "Medium"} onChange={(event) => setRadioButtonOption(event.target.value)} type={type} id={`inline-${type}-2`} /> */}
                         <Form.Check inline label="High" name="radioButtonOption" value="High" checked={radioButtonOption === "High"} onChange={(event) => setRadioButtonOption(event.target.value)} type={type} id={`inline-${type}-3`} />
                     </div>
                 ))}
